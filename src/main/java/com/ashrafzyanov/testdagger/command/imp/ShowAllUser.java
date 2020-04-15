@@ -9,8 +9,11 @@ import java.util.List;
 
 public class ShowAllUser implements Command {
 
-    @Inject
     private UserManager userManager;
+
+    public ShowAllUser(UserManager userManager)  {
+        this.userManager = userManager;
+    }
 
     @Override
     public void execute() {

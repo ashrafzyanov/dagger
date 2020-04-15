@@ -6,7 +6,6 @@ import com.ashrafzyanov.testdagger.dto.UserDTO;
 import com.ashrafzyanov.testdagger.mapper.UserMapper;
 import com.ashrafzyanov.testdagger.model.User;
 import com.ashrafzyanov.testdagger.service.UserManager;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import javax.inject.Inject;
@@ -14,12 +13,14 @@ import java.util.List;
 
 public class UserMangerImpl implements UserManager {
 
-    @Getter
-    @Inject
     private UserMapper userMapper;
+    private UserDAO userDAO;
 
     @Inject
-    private UserDAO userDAO;
+    public UserMangerImpl(UserMapper userMapper, UserDAO userDAO) {
+        this.userMapper = userMapper;
+        this.userDAO = userDAO;
+    }
 
     public List<UserDTO> getUsers() {
         return userMapper.mapUserToUserDto(userDAO.findAll());

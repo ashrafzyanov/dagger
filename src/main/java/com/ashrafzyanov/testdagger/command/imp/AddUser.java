@@ -9,8 +9,12 @@ import java.util.Scanner;
 
 public class AddUser implements Command {
 
-    @Inject
     private UserManager userManager;
+
+    @Inject
+    public AddUser(UserManager userManager) {
+        this.userManager = userManager;
+    }
 
     @Override
     public void execute() {

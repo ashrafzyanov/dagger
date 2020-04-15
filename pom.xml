@@ -21,6 +21,7 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>${LOMBOK.VERSION}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.mapstruct</groupId>
@@ -44,6 +45,16 @@
           <source>1.8</source>
           <target>1.8</target>
           <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${LOMBOK.VERSION}</version>
+            </path>
+            <path>
+              <groupId>org.mapstruct</groupId>
+              <artifactId>mapstruct-processor</artifactId>
+              <version>${MAPSTRUCT.VERSION}</version>
+            </path>
             <path>
               <groupId>com.google.dagger</groupId>
               <artifactId>dagger-compiler</artifactId>

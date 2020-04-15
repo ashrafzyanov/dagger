@@ -5,12 +5,15 @@ import com.ashrafzyanov.testdagger.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class StorageImpl implements Storage {
 
     private List<BaseModel> data = new ArrayList<>();
+    private AtomicLong atomicLong = new AtomicLong(0);
 
     public void add(BaseModel obj) {
+        obj.setId(atomicLong.incrementAndGet());
         data.add(obj);
     }
 
@@ -19,6 +22,10 @@ public class StorageImpl implements Storage {
     }
 
     public void update(BaseModel obj) {
+        if (obj.getId() == null) {
+            add(obj);
+            return;
+        }
         if (data.contains(obj)) {
             data.remove(obj);
             data.add(obj);
