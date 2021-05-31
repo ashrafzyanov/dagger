@@ -5,8 +5,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.ashrafzyanov</groupId>
-  <artifactId>testdagger</artifactId>
+  <artifactId>dagger-parent</artifactId>
+  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>launch</module>
+    <module>dagger-config</module>
+    <module>app</module>
+    <module>assembly</module>
+  </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -14,28 +21,61 @@
     <MAPSTRUCT.VERSION>1.3.1.Final</MAPSTRUCT.VERSION>
     <DAGGER.VERSION>2.0</DAGGER.VERSION>
     <MAVEN.COMPILER.PLUGIN.VERSION>3.6.1</MAVEN.COMPILER.PLUGIN.VERSION>
+    <APP.ENTRYPOINT>APP</APP.ENTRYPOINT>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>${LOMBOK.VERSION}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mapstruct</groupId>
-      <artifactId>mapstruct</artifactId>
-      <version>${MAPSTRUCT.VERSION}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.dagger</groupId>
-      <artifactId>dagger</artifactId>
-      <version>${DAGGER.VERSION}</version>
-    </dependency>
-  </dependencies>
+  <dependencyManagement>
+    <!-- INTERNAL -->
+    <dependencies>
+      <dependency>
+        <groupId>com.ashrafzyanov</groupId>
+        <artifactId>app</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.ashrafzyanov</groupId>
+        <artifactId>launch</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.ashrafzyanov</groupId>
+        <artifactId>dagger-config</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    <!-- END INTERNAL -->
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>${MAPSTRUCT.VERSION}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.dagger</groupId>
+        <artifactId>dagger</artifactId>
+        <version>${DAGGER.VERSION}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${LOMBOK.VERSION}</version>
+        <scope>provided</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>3.0.0</version>
+          <configuration>
+            <skip>true</skip>
+            <mainClass>${APP.ENTRYPOINT}</mainClass>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
